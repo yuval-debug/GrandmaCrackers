@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const commands = [
-  // --- Helpful & Personality Commands ---
   {
     name: 'ask',
     description: 'Ask Grandma anything and she will give you warm, helpful advice!',
@@ -21,8 +20,6 @@ const commands = [
     name: 'help',
     description: 'Learn how to use GrandmaCrackers and start playing the mini life game!',
   },
-
-  // --- Mini Life Game Commands ---
   {
     name: 'daily',
     description: 'Collect your daily batch of freshly baked crackers!',
