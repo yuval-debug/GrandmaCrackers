@@ -1,17 +1,21 @@
 # 👵 GrandmaCrackers Discord Bot
 
-> A warm, interactive Discord bot featuring a Gemini AI assistant and a mini life game centered around baking, collecting, and tracking crackers!
+> A warm, interactive Discord bot featuring a mini life and economy game centered around doing chores, playing games, baking, and saving crackers!
 
 ---
 
 ## 📋 Features
 
-- **👵 AI Assistant (`/ask`)**: Powered by Google's Gemini AI, Grandma answers questions with helpful advice, intelligence, and a sweet, grandmotherly tone.
-- **🍪 Mini Life Game**:
-  - `/daily`: Bake and collect a daily allowance of freshly baked crackers (50–100 crackers).
-  - `/balance`: Check your current cracker pantry balance.
+- **🍪 Mini Life & Economy Game**:
+  - `/daily`: Collect your daily batch of freshly baked crackers (50–100 crackers).
+  - `/work`: Do small household chores for Grandma to earn extra crackers (20–50 crackers).
+  - `/beg`: Politely ask Grandma for a spare treat.
+  - `/sneak`: Try to quietly steal a treat from Grandma's secret pantry jar without getting caught.
+  - `/coinflip [bet] [heads/tails]`: Risk your hard-earned crackers on a heads-or-tails coin toss with Grandma.
+  - `/pay [user] [amount]`: Transfer crackers to share with another server member.
+  - `/balance`: View your current cracker pantry balance.
 - **ℹ️ Guidance**:
-  - `/help`: Interactive menu explaining all available bot interactions and commands.
+  - `/help`: Interactive menu explaining all available bot commands and rules.
 
 ---
 
@@ -19,7 +23,6 @@
 
 - **Runtime**: [Node.js](https://nodejs.org/) (v18+)
 - **Library**: [`discord.js`](https://discord.js.org/) (v14)
-- **AI Engine**: [`@google/genai`](https://www.npmjs.com/package/@google/genai) (`gemini-3.8-flash`)
 - **Environment Management**: [`dotenv`](https://www.npmjs.com/package/dotenv)
 
 ---
