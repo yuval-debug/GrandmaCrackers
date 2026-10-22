@@ -2,6 +2,13 @@
 
 > A warm, interactive Discord bot featuring a mini life and economy game centered around doing chores, playing games, baking, and saving crackers!
 
+
+Use this link to add the bot to your own server on discord:
+
+
+https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2147551232&integration_type=0&scope=bot+applications.commands
+
+
 ---
 
 ##  Features
