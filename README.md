@@ -6,7 +6,7 @@
 
 ##  Features
 
-- ** Mini Life & Economy Game**:
+-    Mini Life & Economy Game  :
   - `/daily`: Collect your daily batch of freshly baked crackers (50–100 crackers).
   - `/work`: Do small household chores for Grandma to earn extra crackers (20–50 crackers).
   - `/beg`: Politely ask Grandma for a spare treat.
@@ -14,16 +14,16 @@
   - `/coinflip [bet] [heads/tails]`: Risk your hard-earned crackers on a heads-or-tails coin toss with Grandma.
   - `/pay [user] [amount]`: Transfer crackers to share with another server member.
   - `/balance`: View your current cracker pantry balance.
-- ** Guidance**:
+-    Guidance  :
   - `/help`: Interactive menu explaining all available bot commands and rules.
 
 ---
 
 ##  Tech Stack
 
-- **Runtime**: [Node.js](https://nodejs.org/) (v18+)
-- **Library**: [`discord.js`](https://discord.js.org/) (v14)
-- **Environment Management**: [`dotenv`](https://www.npmjs.com/package/dotenv)
+-   Runtime  : [Node.js](https://nodejs.org/) (v18+)
+-   Library  : [`discord.js`](https://discord.js.org/) (v14)
+-   Environment Management  : [`dotenv`](https://www.npmjs.com/package/dotenv)
 
 ---
 
