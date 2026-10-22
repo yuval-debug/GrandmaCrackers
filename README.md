@@ -1,4 +1,4 @@
-#  GrandmaCrackers Discord Bot
+# GrandmaCrackers Discord Bot
 
 > A warm, interactive Discord bot featuring an economy game centered around doing chores, playing games, baking, and saving crackers!
 
@@ -11,7 +11,7 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
 
 ---
 
-##  Commands
+## Commands
   ### Economy Game  
   - `/daily`: Collect your daily batch of freshly baked crackers (50–100 crackers).
   - `/work`: Do small household chores for Grandma to earn extra crackers (20–50 crackers).
@@ -20,16 +20,21 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
   - `/coinflip [bet] [heads/tails]`: Risk your hard-earned crackers on a heads-or-tails coin toss with Grandma.
   - `/pay [user] [amount]`: Transfer crackers to share with another server member.
   - `/balance`: View your current cracker pantry balance.
--    Guidance  :
+
+  ### Utilities
+  - `/roll [max]`: Roll a random number between 1 and a chosen maximum value (default is 100).
+  - `/remind [task] [time]`: Set a timed reminder for Grandma to alert you about a task (e.g., 10s, 5m, 1h).
+
+  ### Guidance  
   - `/help`: Interactive menu explaining all available bot commands and rules.
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
--   Runtime  : [Node.js](https://nodejs.org/) (v18+)
--   Library  : [`discord.js`](https://discord.js.org/) (v14)
--   Environment Management  : [`dotenv`](https://www.npmjs.com/package/dotenv)
+- Runtime : [Node.js](https://nodejs.org/) (v18+)
+- Library : [`discord.js`](https://discord.js.org/) (v14)
+- Environment Management : [`dotenv`](https://www.npmjs.com/package/dotenv)
 
 ---
 
@@ -46,6 +51,6 @@ Make sure you have installed:
 Clone the repository and install project dependencies:
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/GrandmaCrackers.git](https://github.com/YOUR_USERNAME/GrandmaCrackers.git)
+git clone [https://github.com/yuval-debug/GrandmaCrackers.git](https://github.com/yuval-debug/GrandmaCrackers.git)
 cd GrandmaCrackers
 npm install
