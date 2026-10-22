@@ -13,7 +13,7 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
 
 ##  Commands
 
--    # Economy Game  :
+-    ### Economy Game  
   - `/daily`: Collect your daily batch of freshly baked crackers (50–100 crackers).
   - `/work`: Do small household chores for Grandma to earn extra crackers (20–50 crackers).
   - `/beg`: Politely ask Grandma for a spare treat.
