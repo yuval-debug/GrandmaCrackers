@@ -1,9 +1,9 @@
 #  GrandmaCrackers Discord Bot
 
-> A warm, interactive Discord bot featuring a mini life and economy game centered around doing chores, playing games, baking, and saving crackers!
+> A warm, interactive Discord bot featuring an economy game centered around doing chores, playing games, baking, and saving crackers!
 
 
-Use this link to add the bot to your own server on discord:
+Use this link to add the bot to your own server on Discord:
 
 
 https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2147551232&integration_type=0&scope=bot+applications.commands
@@ -11,9 +11,9 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
 
 ---
 
-##  Features
+##  Commands
 
--    Mini Life & Economy Game  :
+-     Economy Game  :
   - `/daily`: Collect your daily batch of freshly baked crackers (50–100 crackers).
   - `/work`: Do small household chores for Grandma to earn extra crackers (20–50 crackers).
   - `/beg`: Politely ask Grandma for a spare treat.
