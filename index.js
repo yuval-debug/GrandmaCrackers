@@ -34,20 +34,55 @@ function saveDatabase(data) {
   }
 }
 
-// Get user balance (defaults to 0 if new user)
-function getBalance(userId) {
+// Get user profile
+function getUserData(userId) {
   const db = getDatabase();
-  return db[userId] || 0;
+  if (!db[userId]) {
+    db[userId] = { balance: 0, cooldowns: {} };
+  }
+  if (typeof db[userId] === 'number') {
+    db[userId] = { balance: db[userId], cooldowns: {} };
+  }
+  return db[userId];
 }
 
-// Update user balance
+// Update balance
 function addBalance(userId, amount) {
   const db = getDatabase();
-  const current = db[userId] || 0;
-  const newBalance = Math.max(0, current + amount);
-  db[userId] = newBalance;
+  const userData = getUserData(userId);
+  userData.balance = Math.max(0, userData.balance + amount);
+  db[userId] = userData;
   saveDatabase(db);
-  return newBalance;
+  return userData.balance;
+}
+
+// Check and set cooldowns
+function checkCooldown(userId, commandName, cooldownMs) {
+  const db = getDatabase();
+  const userData = getUserData(userId);
+  const lastUsed = userData.cooldowns[commandName] || 0;
+  const now = Date.now();
+
+  if (now - lastUsed < cooldownMs) {
+    return cooldownMs - (now - lastUsed);
+  }
+
+  userData.cooldowns[commandName] = now;
+  db[userId] = userData;
+  saveDatabase(db);
+  return 0;
+}
+
+// Format time remaining
+function formatTime(ms) {
+  const totalSeconds = Math.ceil(ms / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  if (hours > 0) return `${hours}h ${minutes}m`;
+  if (minutes > 0) return `${minutes}m ${seconds}s`;
+  return `${seconds}s`;
 }
 
 client.once(Events.ClientReady, (c) => {
@@ -66,10 +101,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
         `👵 **GrandmaCrackers - Full Bakery & Life Guide**\n\n` +
         `Welcome to Grandma's kitchen! Here is everything you can do to earn, risk, and manage your crackers:\n\n` +
         `**🍪 Daily & Earning**\n` +
-        `• \`/daily\` - Collect your daily allowance of freshly baked crackers (50–100 crackers).\n` +
-        `• \`/work\` - Help Grandma with chores around the house to earn extra treats (20–50 crackers).\n` +
-        `• \`/beg\` - Ask Grandma nicely for a spare cracker.\n` +
-        `• \`/sneak\` - Attempt to quietly steal treats from the pantry jar without getting caught!\n\n` +
+        `• \`/daily\` - Collect your daily allowance of freshly baked crackers (Every 1 hour).\n` +
+        `• \`/work\` - Help Grandma with chores around the house to earn extra treats (Every 1 hour).\n` +
+        `• \`/beg\` - Ask Grandma nicely for a spare cracker (Every 1 hour).\n` +
+        `• \`/sneak\` - Attempt to quietly steal treats from the pantry jar (Every 2 hours)!\n\n` +
         `**🪙 Gambling & Sharing**\n` +
         `• \`/coinflip [bet] [choice]\` - Bet your crackers on a heads-or-tails coin toss with Grandma.\n` +
         `• \`/pay [user] [amount]\` - Gift some of your crackers to a friend in the server.\n\n` +
@@ -79,8 +114,18 @@ client.on(Events.InteractionCreate, async (interaction) => {
       );
     } 
 
-    // --- /daily ---
+    // --- /daily (1 Hour Cooldown) ---
     else if (commandName === 'daily') {
+      const cooldownMs = 1 * 60 * 60 * 1000; // 1 Hour
+      const remaining = checkCooldown(user.id, 'daily', cooldownMs);
+
+      if (remaining > 0) {
+        return await interaction.reply({
+          content: `👵 *"You've already collected your daily treats, sweetie! Come back in **${formatTime(remaining)}**."*`,
+          ephemeral: true,
+        });
+      }
+
       const earned = Math.floor(Math.random() * 51) + 50; 
       const newTotal = addBalance(user.id, earned);
 
@@ -93,15 +138,25 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     // --- /balance ---
     else if (commandName === 'balance') {
-      const total = getBalance(user.id);
+      const userData = getUserData(user.id);
       await interaction.reply(
         `👵 **Grandma's Pantry:**\n` +
-        `<@${user.id}> currently has **${total} Crackers** stored safely in their jar! 🍪`
+        `<@${user.id}> currently has **${userData.balance} Crackers** stored safely in their jar! 🍪`
       );
     }
 
-    // --- /work ---
+    // --- /work (1 Hour Cooldown) ---
     else if (commandName === 'work') {
+      const cooldownMs = 1 * 60 * 60 * 1000; // 1 Hour
+      const remaining = checkCooldown(user.id, 'work', cooldownMs);
+
+      if (remaining > 0) {
+        return await interaction.reply({
+          content: `👵 *"There are no chores to do right now, dear. Check back in **${formatTime(remaining)}**!"*`,
+          ephemeral: true,
+        });
+      }
+
       const jobs = [
         'swept the kitchen floor',
         'organized Grandma\'s spice rack',
@@ -118,8 +173,18 @@ client.on(Events.InteractionCreate, async (interaction) => {
       );
     }
 
-    // --- /beg ---
+    // --- /beg (1 Hour Cooldown) ---
     else if (commandName === 'beg') {
+      const cooldownMs = 1 * 60 * 60 * 1000; // 1 Hour
+      const remaining = checkCooldown(user.id, 'beg', cooldownMs);
+
+      if (remaining > 0) {
+        return await interaction.reply({
+          content: `👵 *"I just gave you a treat! Ask me again in **${formatTime(remaining)}**."*`,
+          ephemeral: true,
+        });
+      }
+
       const success = Math.random() > 0.3;
       if (success) {
         const amount = Math.floor(Math.random() * 15) + 5;
@@ -140,11 +205,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
     else if (commandName === 'coinflip') {
       const bet = interaction.options.getInteger('bet');
       const choice = interaction.options.getString('choice');
-      const currentBalance = getBalance(user.id);
+      const userData = getUserData(user.id);
 
-      if (bet > currentBalance) {
+      if (bet > userData.balance) {
         return await interaction.reply({
-          content: `👵 *"You don't have enough crackers for that bet, sweetie! You only have ${currentBalance} Crackers."*`,
+          content: `👵 *"You don't have enough crackers for that bet, sweetie! You only have ${userData.balance} Crackers."*`,
           ephemeral: true,
         });
       }
@@ -172,7 +237,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     else if (commandName === 'pay') {
       const targetUser = interaction.options.getUser('user');
       const amount = interaction.options.getInteger('amount');
-      const currentBalance = getBalance(user.id);
+      const userData = getUserData(user.id);
 
       if (targetUser.id === user.id) {
         return await interaction.reply({
@@ -181,9 +246,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
         });
       }
 
-      if (amount > currentBalance) {
+      if (amount > userData.balance) {
         return await interaction.reply({
-          content: `👵 *"You don't have enough crackers to give away! You only have ${currentBalance} Crackers."*`,
+          content: `👵 *"You don't have enough crackers to give away! You only have ${userData.balance} Crackers."*`,
           ephemeral: true,
         });
       }
@@ -197,12 +262,22 @@ client.on(Events.InteractionCreate, async (interaction) => {
       );
     }
 
-    // --- /sneak ---
+    // --- /sneak (2 Hour Cooldown) ---
     else if (commandName === 'sneak') {
+      const cooldownMs = 2 * 60 * 60 * 1000; // 2 Hours
+      const remaining = checkCooldown(user.id, 'sneak', cooldownMs);
+
+      if (remaining > 0) {
+        return await interaction.reply({
+          content: `👵 *"Grandma is watching the kitchen closely! Try sneaking again in **${formatTime(remaining)}**."*`,
+          ephemeral: true,
+        });
+      }
+
       const caught = Math.random() < 0.4;
       if (caught) {
-        const currentBalance = getBalance(user.id);
-        const penalty = Math.min(currentBalance, Math.floor(Math.random() * 15) + 5);
+        const userData = getUserData(user.id);
+        const penalty = Math.min(userData.balance, Math.floor(Math.random() * 15) + 5);
         const newTotal = addBalance(user.id, -penalty);
 
         await interaction.reply(
