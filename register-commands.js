@@ -83,6 +83,6 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
     );
     console.log('Successfully registered all commands!');
   } catch (error) {
-    console.error(error);
+    console.error('Registration failed:', error);
   }
 })();
