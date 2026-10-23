@@ -2,7 +2,7 @@ import { Client, GatewayIntentBits, Events } from 'discord.js';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import OpenAI from 'openai';
+import { GoogleGenAI } from '@google/genai';
 
 dotenv.config();
 
@@ -10,9 +10,9 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 });
 
-// Initialize OpenAI client
-const openai = process.env.OPENAI_API_KEY 
-  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+// Initialize Gemini AI
+const ai = process.env.GEMINI_API_KEY 
+  ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
   : null;
 
 const DB_PATH = path.resolve('./db.json');
@@ -126,7 +126,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
         `• \`/pay [user] [amount]\` - Gift crackers to a friend in the server.\n` +
         `• \`/roll [max]\` - Roll a random number between 1 and max (Default: 100).\n` +
         `• \`/remind [task] [time]\` - Set a reminder timer (e.g. 10s, 5m, 1h).\n` +
-        `• \`/ask [question]\` - Ask Grandma anything using OpenAI!\n\n` +
+        `• \`/ask [question]\` - Ask Grandma anything using AI!\n\n` +
         `**Account & Pantry**\n` +
         `• \`/balance\` - View your current cracker balance.\n` +
         `• \`/help\` - Display this guide anytime!`
@@ -342,11 +342,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
       }, durationMs);
     }
 
-    // --- NEW: /ask using OpenAI ---
+// --- /ask using Gemini with Auto-Retry on 503 ---
     else if (commandName === 'ask') {
-      if (!openai) {
+      if (!ai) {
         return await interaction.reply({
-          content: `Oh dear, my OPENAI_API_KEY seems to be missing from the .env file!`,
+          content: `Oh dear, my GEMINI_API_KEY seems to be missing from the .env file!`,
           ephemeral: true,
         });
       }
@@ -354,26 +354,35 @@ client.on(Events.InteractionCreate, async (interaction) => {
       const question = interaction.options.getString('question');
       await interaction.deferReply();
 
-      try {
-        const response = await openai.chat.completions.create({
-          model: 'gpt-4o-mini',
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a sweet, traditional, loving Grandma running a Discord server. Answer the grandchild warmly using cozy tone where appropriate. Do not use emojis in your response. Keep responses under 1500 characters.',
-            },
-            {
-              role: 'user',
-              content: question,
-            },
-          ],
-        });
+      const prompt = `You are a sweet, traditional, loving Grandma running a Discord server. Answer the grandchild warmly using a cozy tone where appropriate. Do not use emojis in your response. Keep responses under 1500 characters. Question: "${question}"`;
 
-        const answer = response.choices[0]?.message?.content || "Grandma tilted her head, adjusted her glasses, but couldn't quite hear you, dear!";
-        
-        await interaction.editReply(`**Grandma says:**\n${answer}`);
-      } catch (err) {
-        console.error('OpenAI API Error:', err);
+      let response = null;
+      let retries = 3;
+      let delay = 1500; // 1.5 seconds delay between retries
+
+      for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+          response = await ai.models.generateContent({
+            model: 'gemini-3.8-flash',
+            contents: prompt,
+          });
+          break; // Success! Exit retry loop
+        } catch (err) {
+          // If hit with 503 high demand on free tier, wait and retry
+          if (err.status === 503 && attempt < retries) {
+            console.log(`Gemini 503 busy spike. Retrying attempt ${attempt}/${retries} in ${delay}ms...`);
+            await new Promise((resolve) => setTimeout(resolve, delay));
+            delay *= 2; // Double delay for next attempt
+          } else {
+            console.error('Gemini API Error:', err);
+            break;
+          }
+        }
+      }
+
+      if (response && response.text) {
+        await interaction.editReply(`**Grandma says:**\n${response.text}`);
+      } else {
         await interaction.editReply(`Oh my, my glasses got foggy! Give Grandma a moment and ask me again in a bit.`);
       }
     }
