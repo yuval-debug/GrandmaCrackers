@@ -24,7 +24,8 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
   ### Utilities
   - `/roll [max]`: Roll a random number between 1 and a chosen maximum value (default is 100).
   - `/remind [task] [time]`: Set a timed reminder for Grandma to alert you about a task (e.g., 10s, 5m, 1h).
-
+  - `/ask [question]`: Ask Grandma a question using OpenAI.
+  
   ### Guidance  
   - `/help`: Interactive menu explaining all available bot commands and rules.
 
