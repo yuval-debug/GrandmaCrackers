@@ -1,7 +1,6 @@
-# GrandmaCrackers Discord Bot
+   GrandmaCrackers Discord Bot
 
-> A warm, interactive Discord bot featuring an economy game centered around doing chores, playing games, baking, and saving crackers!
-
+A for Discord! It can run games, answer questions, and remind your friends to drink water… ask it anything but be patient GrandmaCrackers is abit slow so please respect her.
 
 Use this link to add the bot to your own server on Discord:
 
@@ -11,27 +10,26 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
 
 ---
 
-## Commands
-  ### Economy Game  
-  - `/daily`: Collect your daily batch of freshly baked crackers (50–100 crackers).
-  - `/work`: Do small household chores for Grandma to earn extra crackers (20–50 crackers).
-  - `/beg`: Politely ask Grandma for a spare treat.
-  - `/sneak`: Try to quietly steal a treat from Grandma's secret pantry jar without getting caught.
-  - `/coinflip [bet] [heads/tails]`: Risk your hard-earned crackers on a heads-or-tails coin toss with Grandma.
-  - `/pay [user] [amount]`: Transfer crackers to share with another server member.
+Commands that are avilable
+        Economy commands 
+  - `/daily`: you get to collect crackers without doing anything.(every hour)
+  - `/work`: You collect crackers by doing tasks (every hour)
+  - `/beg`: Jsut asking/spamming GrandamCrackers for some more. [lets not get greedy]
+  - `/sneak`: Not recomended to follow the unmoral path but if you chose to beware!
+  - `/coinflip`: Heads or Tails, you chose either to win or lose [the house allways wins ;) ]
+  - `/pay`: Pay someone all or some of your crackers thats up to you, unless u owe them.
   - `/balance`: View your current cracker pantry balance.
 
-  ### Utilities
-  - `/roll [max]`: Roll a random number between 1 and a chosen maximum value (default is 100).
-  - `/remind [task] [time]`: Set a timed reminder for Grandma to alert you about a task (e.g., 10s, 5m, 1h).
-  - `/ask [question]`: Ask Grandma a question using OpenAI.
+         Utilities
+  - `/roll `: Use your inner gambler to win some high stake games
+  - `/remind `: If/ when you are to lazy to remember or count on your freinds, count on GrandmaCrackers to do the job and remind you in time.
+  - `/ask`: Ask GrandmaCrackers anything and she will respond, maybe not to the fullest, but hey it still counts :|
   
-  ### Guidance  
-  - `/help`: Interactive menu explaining all available bot commands and rules.
-
+        HELP ME  
+  - `/help`: To find all the commands dont be scared to use this.
 ---
 
-## Tech Stack
+     What I use to make this work
 
 - Runtime : [Node.js](https://nodejs.org/) (v18+)
 - Library : [`discord.js`](https://discord.js.org/) (v14)
@@ -39,19 +37,18 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
 
 ---
 
-## Getting Started
+     Doing this yourself
 
-### 1. Prerequisites
+       1. Installment
 
 Make sure you have installed:
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - [Git](https://git-scm.com/)
 
-### 2. Installation
 
 Clone the repository and install project dependencies:
 
-```bash
+```to copy my work you copy cat use this!
 git clone [https://github.com/yuval-debug/GrandmaCrackers.git](https://github.com/yuval-debug/GrandmaCrackers.git)
 cd GrandmaCrackers
 npm install
