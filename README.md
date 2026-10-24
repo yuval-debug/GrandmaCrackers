@@ -16,7 +16,7 @@ Commands that are avilable
   - `/daily`: you get to collect crackers without doing anything.(every hour)
   - `/work`: You collect crackers by doing tasks (every hour)
   - `/beg`: Jsut asking/spamming GrandamCrackers for some more. [lets not get greedy]
-  - `/sneak`: Not recomended to follow the unmoral path but if you chose to beware!
+  - `/sneak`: Not recomended to follow the unmoral path but if you chose to, beware!
   - `/coinflip`: Heads or Tails, you chose either to win or lose [the house allways wins ;) ]
   - `/pay`: Pay someone all or some of your crackers thats up to you, unless u owe them.
   - `/balance`: Show off how rich/poor you got from the gambling
