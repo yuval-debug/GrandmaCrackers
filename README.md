@@ -12,7 +12,7 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
 
 Commands that are avilable
        
-       Money Commands
+       'Money Commands'
   - `/daily`: you get to collect crackers without doing anything.(every hour)
   - `/work`: You collect crackers by doing tasks (every hour)
   - `/beg`: Jsut asking/spamming GrandamCrackers for some more. [lets not get greedy]
