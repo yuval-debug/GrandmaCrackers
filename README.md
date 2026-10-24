@@ -18,7 +18,7 @@ Commands that are avilable
   - `/sneak`: Not recomended to follow the unmoral path but if you chose to beware!
   - `/coinflip`: Heads or Tails, you chose either to win or lose [the house allways wins ;) ]
   - `/pay`: Pay someone all or some of your crackers thats up to you, unless u owe them.
-  - `/balance`: View your current cracker pantry balance.
+  - `/balance`: Show off how rich/poor you got from the gambling
 
          Utilities
   - `/roll `: Use your inner gambler to win some high stake games
