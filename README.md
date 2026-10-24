@@ -1,6 +1,6 @@
    GrandmaCrackers Discord Bot
 
-A for Discord! It can run games, answer questions, and remind your friends to drink water… ask it anything but be patient GrandmaCrackers is abit slow so please respect her.
+A for Discord! It can run games, answer questions, and remind your friends to drink water.Ask her anything but be patient GrandmaCrackers is abit slow so please respect her.
 
 Use this link to add the bot to your own server on Discord:
 
@@ -11,7 +11,8 @@ https://discord.com/oauth2/authorize?client_id=1562595111077154936&permissions=2
 ---
 
 Commands that are avilable
-        Economy commands 
+       
+       Money Commands
   - `/daily`: you get to collect crackers without doing anything.(every hour)
   - `/work`: You collect crackers by doing tasks (every hour)
   - `/beg`: Jsut asking/spamming GrandamCrackers for some more. [lets not get greedy]
@@ -20,12 +21,12 @@ Commands that are avilable
   - `/pay`: Pay someone all or some of your crackers thats up to you, unless u owe them.
   - `/balance`: Show off how rich/poor you got from the gambling
 
-         Utilities
+         Gamble,Remember,Ask, REPEAT
   - `/roll `: Use your inner gambler to win some high stake games
   - `/remind `: If/ when you are to lazy to remember or count on your freinds, count on GrandmaCrackers to do the job and remind you in time.
   - `/ask`: Ask GrandmaCrackers anything and she will respond, maybe not to the fullest, but hey it still counts :|
   
-        HELP ME  
+        HELP I NEED HELP
   - `/help`: To find all the commands dont be scared to use this.
 ---
 
